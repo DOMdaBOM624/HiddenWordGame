@@ -1,43 +1,45 @@
 import java.util.Scanner;
 public class Game {
-    private String hidden;
-    private String guess;
-    private String hint;
-
+    public String hidden;
+    public String guess;
+    public String hint;
+    public String wrong;
+    public String almost;
     public static void main(String[] args) {
         Game game = new Game();
         game.run();
 
     }
-
     public void run() {
         Scanner kb = new Scanner(System.in);
-        System.out.println("Enter a word my boy");
+        System.out.println("Type a hidden word bruh!");
         hidden = kb.nextLine();
-
-        int hiddenLength = hidden.length();
-
-System.out.println(hidden);System.out.println(guess);
-
-
-        while (!hidden.equals(guess))
-        {
-            hint = "";
-            System.out.println("Enter a " + hiddenLength + " letter word");
-            guess = kb.nextLine();
+        System.out.println("Guess a " + hidden.length() + " letter word");
+        guess = kb.nextLine();
+        hint = "";
+        wrong = "*";
+        almost = "+";
+        while (!hidden.equals(guess)) {
 
             for (int i = 0; i < hidden.length(); i++) {
+                //"this".equals();
                 if (hidden.substring(i, i + 1).equals(guess.substring(i, i + 1))) {
                     hint += guess.substring(i, i + 1);
-                } else if (hidden.indexOf(guess.substring(i, i + 1)) != -1) {
-                    hint += "*";
-                } else {
-                    hint += "*";
                 }
-
-
+                else if (guess.substring(i, i + 1).equals(hint)) {
+                    hint += almost;
+                }// += -> same as hint = hint +
+                else {
+                    hint += wrong;
+                }
             }
             System.out.println(hint);
+            System.out.println("Try another " + hidden.length() + " letter word");
+            hint = "";
+            guess = kb.nextLine();
         }
+        System.out.println("Hooray, you win go you!");
+
     }
+
 }
